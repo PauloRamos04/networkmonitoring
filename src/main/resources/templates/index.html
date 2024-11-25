@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoramento de Rede</title>
+    <script>
+        // Função para atualizar a lista de dispositivos online a cada 5 segundos
+        function fetchDevices() {
+            fetch("/network/")
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("device-list").innerHTML = data;
+                });
+        }
+
+        setInterval(fetchDevices, 5000); // Atualiza a cada 5 segundos
+
+        // Função para descobrir dispositivos na rede
+        function discoverDevices() {
+            const subnet = document.getElementById("subnet").value; // Obtém a faixa de IP do usuário
+            fetch('/network/discoverDevices?subnet=' + subnet, { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        alert("Dispositivos descobertos na faixa " + subnet);
+                        fetchDevices(); // Atualiza a lista de dispositivos
+                    } else {
+                        alert("Erro ao descobrir dispositivos.");
+                    }
+                });
+        }
+    </script>
+</head>
+<body>
+<h1>Monitoramento de Rede</h1>
+
+<!-- Campo para alterar a faixa de IP -->
+<label for="subnet">Faixa de IP (ex: 192.168.5):</label>
+<input type="text" id="subnet" value="192.168.5" />
+
+<!-- Botão para descobrir dispositivos -->
+<button onclick="discoverDevices()">Descobrir Dispositivos</button>
+
+<!-- Tabela de dispositivos online -->
+<h2>Dispositivos Online</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>IP</th>
+        <th>MAC Address</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody id="device-list">
+    <!-- A lista de dispositivos será preenchida pelo Spring -->
+    <th:block th:each="device : ${devices}">
+        <tr th:if="${device.online}">
+            <td th:text="${device.ip}"></td>
+            <td th:text="${device.macAddress}"></td>
+            <td>Online</td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+</body>
+</html>

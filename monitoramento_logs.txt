@@ -1,0 +1,5 @@
+2024-11-25T01:10:00.676-03:00  INFO 14884 --- [networkmonitoring] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2024-11-25T01:10:01.380-03:00  INFO 14884 --- [networkmonitoring] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2024-11-25T01:10:01.433-03:00  INFO 14884 --- [networkmonitoring] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-25T01:10:01.589-03:00  INFO 14884 --- [networkmonitoring] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-25T01:10:01.621-03:00  INFO 14884 --- [networkmonitoring] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
